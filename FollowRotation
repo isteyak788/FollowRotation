@@ -1,0 +1,24 @@
+using UnityEngine;
+
+public class FollowRotation : MonoBehaviour
+{
+    public bool followXAxis = true;
+    public bool followYAxis = true;
+    public bool followZAxis = true;
+
+    void Update()
+    {
+        // Get the camera's rotation
+        Quaternion cameraRotation = Camera.main.transform.rotation;
+
+        // Extract the individual Euler angles
+        Vector3 cameraEulerAngles = cameraRotation.eulerAngles;
+
+        // Set the object's rotation based on the chosen axes
+        float newX = followXAxis ? cameraEulerAngles.x : transform.rotation.eulerAngles.x;
+        float newY = followYAxis ? cameraEulerAngles.y : transform.rotation.eulerAngles.y;
+        float newZ = followZAxis ? cameraEulerAngles.z : transform.rotation.eulerAngles.z;
+
+        transform.rotation = Quaternion.Euler(newX, newY, newZ);
+    }
+}
